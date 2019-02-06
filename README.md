@@ -96,11 +96,11 @@ b2472292b627        sport/cityservice         "java -Djava.securit…"   About a
 
 ### Calculator service
 
-The calculator service has one GET endpoint. There are restrictions for the cityservice (and other future services with access to sensitive data). However, for the calculation service there are no security restrictions given as the service is intended to be available to anyone (user or service) who wants to use the service.
+The calculatorservice has one GET endpoint. There are restrictions for the cityservice (and other future services with access to sensitive data). However, for the calculationservice there are no security restrictions given as the service is intended to be available to anyone (user or service) who wants to use the service.
 
 The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. With the default data you can see how the fastest and easiest routes can be different by using the URL http://localhost:8777/calculator/optimalroutes?startCity=Barcelona&destinationCity=Torino. The unit tests have all the different use cases (for example having equally fast or easy routes) extensively. When the service is running, detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
 
-The calculator service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). This can also be observed in logging as below:
+The calculatorservice calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). This can also be observed in logging as below:
 
 ```
 2019-02-06 18:08:15.542  INFO 38996 --- [nio-8777-exec-4] c.sport.integration.CityServiceHandler   : DataService address not found in registry. Configured direct address used
@@ -116,11 +116,11 @@ With docker or when the registry is running locally the base address given from 
 
 Calculatorservice accesses the cityservice using basic authentication. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes. Something to consider in the future is whether the route data needs to be real-time or not. If we can afford it to be some seconds or even a minute old, we could apply a cache solution here.
 
-Calculator service uses the data given by cityservice to do calculation of the quickest and easiest routes available and returns them to the caller in json format. For the quickest route only travel time is considered and any waiting time is discarded.
+Calculatorservice uses the data given by cityservice to do calculation of the quickest and easiest routes available and returns them to the caller in json format. For the quickest route only travel time is considered and any waiting time is discarded.
 
 ### City service
 
-The city service provides one GET endpoint for any identified users to fetch (and in the future possibly update) data from its database. The local address of the endpoint is http://localhost:8666/routes. Detailed info can be found at http://localhost:8666/swagger-ui.html.
+The cityservice provides one GET endpoint for any identified users to fetch (and in the future possibly update) data from its database. The local address of the endpoint is http://localhost:8666/routes. Detailed info can be found at http://localhost:8666/swagger-ui.html.
 
 Access to cityservice is restricted since the service provides access to vital data inside the system. Used authentication method is basic authentication. When viewed in browser it will ask for user credentials which are by default **sport** (username) and **city** (password). The future plan is to extend this to use tokens and to use different roles for different operations.
 
