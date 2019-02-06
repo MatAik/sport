@@ -120,7 +120,7 @@ Calculator service uses the data given by cityservice to do calculation of the q
 
 ### City service
 
-The city service provides one GET endpoint for any identified users the fetch (and in the future possibly update) data from its database. The local address of the endpoint is http://localhost:8666/routes. Detailed info can be found at http://localhost:8666/swagger-ui.html.
+The city service provides one GET endpoint for any identified users to fetch (and in the future possibly update) data from its database. The local address of the endpoint is http://localhost:8666/routes. Detailed info can be found at http://localhost:8666/swagger-ui.html.
 
 Access to cityservice is restricted since the service provides access to vital data inside the system. Used authentication method is basic authentication. When viewed in browser it will ask for user credentials which are by default **sport** (username) and **city** (password). The future plan is to extend this to use tokens and to use different roles for different operations.
 
