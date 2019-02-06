@@ -91,3 +91,15 @@ b2472292b627        sport/cityservice         "java -Djava.securit…"   About a
 5f5bbf16736a        sport/registry            "java -Djava.securit…"   About an hour ago   Up About an hour    0.0.0.0:8888->8888/tcp                            sport-service-registry
 
 ```
+
+# Usage and details
+
+- Calculator service
+
+The calculator service has one GET endpoint. There are no security restrictions given as the service is intended to be availabel to anyone (user or service) who wants to use the service.
+
+The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. Detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
+
+- The service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). With docker or when the registry is running locally the base address given from registry will be used to call the /routes end-point of cityservice.
+- Cityservice uses basic authentication to provide access. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes.
+- Calculator service uses the data given by cityservice to do calculation of the quickest and easiest routes available and returns them to the caller in json format.
