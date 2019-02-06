@@ -96,7 +96,7 @@ b2472292b627        sport/cityservice         "java -Djava.securit…"   About a
 
 - Calculator service
 
-The calculator service has one GET endpoint. There are no security restrictions given as the service is intended to be availabel to anyone (user or service) who wants to use the service.
+The calculator service has one GET endpoint. There are restrictions for the cityservice (and other future services with access to sensitive data). However, for the calculation service there are no security restrictions given as the service is intended to be available to anyone (user or service) who wants to use the service.
 
 The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. When the service is running, detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
 
