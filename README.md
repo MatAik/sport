@@ -120,4 +120,4 @@ Cityservice accesses a database, does conversion to Json objects and returns all
   
 - Registry
 
-The registry is a Eureka based service that is used by any microservices in the itinerary system to to register and gain information about other services.
+The registry is a Eureka based service that is used by any microservices in the itinerary system to to register and gain information about other services. For cityservice and calculatorservice, the registry works both locally and in docker since both of those microservices have been assigned two default hostnames.
