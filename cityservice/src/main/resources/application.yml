@@ -1,0 +1,37 @@
+server:
+  port: ${PORT:8666}
+
+spring:
+  application:
+    name: cityservice
+  security:
+    user:
+      name: sport
+      password: city
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:city;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://sport-service-registry:8888/eureka/,http://localhost:8888/eureka/

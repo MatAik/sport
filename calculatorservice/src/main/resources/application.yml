@@ -1,0 +1,25 @@
+server:
+  port: ${PORT:8777}
+
+spring:
+  application:
+    name: calculatorservice
+  security:
+    user:
+      name: never
+      password: guess
+
+eureka:
+  instance:
+    hostname: localhost
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://sport-service-registry:8888/eureka/,http://localhost:8888/eureka/
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+
