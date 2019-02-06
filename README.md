@@ -98,7 +98,7 @@ b2472292b627        sport/cityservice         "java -Djava.securit…"   About a
 
 The calculator service has one GET endpoint. There are restrictions for the cityservice (and other future services with access to sensitive data). However, for the calculation service there are no security restrictions given as the service is intended to be available to anyone (user or service) who wants to use the service.
 
-The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. When the service is running, detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
+The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. With the default data you can see how the fastest and easiest routes can be different by using the URL http://localhost:8777/calculator/optimalroutes?startCity=Barcelona&destinationCity=Torino. The unit tests have all the different use cases (for example having equally fast or easy routes) extensively. When the service is running, detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
 
 The calculator service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). This can also be observed in logging as below:
 
