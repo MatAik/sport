@@ -51,3 +51,43 @@ The project can be run locally following the instructions below:
   - C:\sport-master>java -jar ./calculatorservice/target/calculatorservice.jar
   
 That's it! Setup is done and the projects are running!
+
+# Setup Instructions for docker
+
+The project can also be run using Docker containers. In order to publish with docker, follow the below instructions:
+
+- Clone or download as above
+
+- in the itinerary (or which ever directory the project was unzipped to) directory run the clean install command, for example
+  - C:\sport-master>mvn clean package
+  
+- run the below build commands
+  - docker build -t sport/cityservice ./cityservice
+  - docker build -t sport/calculatorservice ./calculatorservice
+  - docker build -t sport/registry ./registry
+  
+- to check that everything is according to plan so far run the command 'docker image' and the data similar to below should be shown
+
+```
+REPOSITORY                        TAG                 IMAGE ID            CREATED             SIZE
+sport/registry                    latest              7a6b9c7a3cae        27 seconds ago      147MB
+sport/calculatorservice           latest              4c176184fb24        44 seconds ago      151MB
+sport/cityservice                 latest              25b7e7241360        52 seconds ago      165MB
+```
+
+- run the below commands to start all the services
+  - docker run --rm -P --name sport-service-registry -p 8888:8888 sport/registry
+  - docker run --rm -P --name sport-cityservice --link sport-service-registry -p 8666:8666 sport/cityservice
+  - docker run --rm -P --name sport-calculatorservice --link sport-service-registry -p 8777:8777 sport/calculatorservice
+  
+  - link command is used since there was no time yet to provide a proper docker-compose.yml which could be used all the way to production
+  
+- to see that the services are running, give a command 'docker ps' and something like this should be shown:
+
+```
+CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                             NAMES
+c552dedda9bd        sport/calculatorservice   "java -Djava.securit…"   About an hour ago   Up About an hour    0.0.0.0:8777->8777/tcp, 0.0.0.0:32780->8080/tcp   sport-calculatorservice
+b2472292b627        sport/cityservice         "java -Djava.securit…"   About an hour ago   Up About an hour    0.0.0.0:8666->8666/tcp, 0.0.0.0:32779->8080/tcp   sport-cityservice
+5f5bbf16736a        sport/registry            "java -Djava.securit…"   About an hour ago   Up About an hour    0.0.0.0:8888->8888/tcp                            sport-service-registry
+
+```
