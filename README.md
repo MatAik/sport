@@ -100,7 +100,19 @@ The calculator service has one GET endpoint. There are no security restrictions 
 
 The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. When the service is running, detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
 
-The calculator service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). With docker or when the registry is running locally the base address given from registry will be used to call the /routes end-point of cityservice.
+The calculator service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). This can also be observed in logging as below:
+
+```
+2019-02-06 18:08:15.542  INFO 38996 --- [nio-8777-exec-4] c.sport.integration.CityServiceHandler   : DataService address not found in registry. Configured direct address used
+2019-02-06 18:08:15.542  INFO 38996 --- [nio-8777-exec-4] c.sport.integration.CityServiceHandler   : Calling url http://localhost:8666/routes
+
+
+2019-02-06 18:08:18.625  INFO 38996 --- [nio-8777-exec-7] c.sport.integration.CityServiceHandler   : DataService address found in registry
+2019-02-06 18:08:18.626  INFO 38996 --- [nio-8777-exec-7] c.sport.integration.CityServiceHandler   : Calling url http://192.168.99.1:8666/routes
+```
+
+
+With docker or when the registry is running locally the base address given from registry will be used to call the /routes end-point of cityservice.
 
 Calculatorservice accesses the cityservice using basic authentication. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes.
 
