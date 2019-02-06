@@ -4,7 +4,7 @@ The project here is an itinerary service for the purpose of providing the best p
 
 The project consists of two microservices, one taking care of any access to database (called cityservice) and one that has the job of calculating the optimal routes based on the data from cityservice and possibly other services in the future.
 
-There is also a registry service for handling the communication between services and option for load balancing.
+There is also a registry service for handling the communication between services and option for load balancing if the user numbers are to get higher.
 
 # Used frameworks and libraries
 
@@ -114,7 +114,7 @@ The calculator service calls the registry service to retrieve the URL for cityse
 
 With docker or when the registry is running locally the base address given from registry will be used to call the /routes end-point of cityservice.
 
-Calculatorservice accesses the cityservice using basic authentication. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes.
+Calculatorservice accesses the cityservice using basic authentication. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes. Something to consider in the future is whether the route data needs to be real-time or not. If we can afford it to be some seconds or even a minute old, we could apply a cache solution here.
 
 Calculator service uses the data given by cityservice to do calculation of the quickest and easiest routes available and returns them to the caller in json format. For the quickest route only travel time is considered and any waiting time is discarded.
 
