@@ -36,3 +36,18 @@ The database service (cityservice) runs on in-memory H2 Database. This approach 
 
 Jackson libraries are used for JSON to Object mapping
 
+# Setup Instructions
+
+The project can be run locally following the instructions below:
+
+- Clone or download and unzip the repository from GitHub
+
+- in the itinerary (or which ever directory the project was unzipped to) directory run the clean install command, for example
+  - C:\sport-master>mvn clean install
+  
+- in the above directory run the command for all three services
+  - C:\sport-master>java -jar ./registry/target/registry.jar
+  - C:\sport-master>java -jar ./cityservice/target/cityservice.jar
+  - C:\sport-master>java -jar ./calculatorservice/target/calculatorservice.jar
+  
+That's it! Setup is done and the projects are running!
