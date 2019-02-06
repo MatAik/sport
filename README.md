@@ -98,8 +98,19 @@ b2472292b627        sport/cityservice         "java -Djava.securit…"   About a
 
 The calculator service has one GET endpoint. There are no security restrictions given as the service is intended to be availabel to anyone (user or service) who wants to use the service.
 
-The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. Detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
+The end point address in local environment is for example http://localhost:8777/calculator/optimalroutes?startCity=Zaragoza&destinationCity=Barcelona giving in return the optimal routes available. When the service is running, detailed Api documentation can be found at http://localhost:8777/swagger-ui.html
 
-- The service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). With docker or when the registry is running locally the base address given from registry will be used to call the /routes end-point of cityservice.
-- Cityservice uses basic authentication to provide access. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes.
-- Calculator service uses the data given by cityservice to do calculation of the quickest and easiest routes available and returns them to the caller in json format.
+  - The calculator service calls the registry service to retrieve the URL for cityservice. If the URL is not available or the registry is down, calculatorservice will try to call the service based on set up in dataservice.properties (this is to make for easier local testing if the registry is not available). With docker or when the registry is running locally the base address given from registry will be used to call the /routes end-point of cityservice.
+  - Cityservice uses basic authentication to provide access. If the username and password are set-up correctly (set by config by default) cityservice returns a list of all possible routes.
+  - Calculator service uses the data given by cityservice to do calculation of the quickest and easiest routes available and returns them to the caller in json format. For the quickest route only travel time is considered and any waiting time is discarded.
+
+- City service
+
+The city service provides one GET endpoint for any identified users the fetch (and in the future possibly update) data from its database. The local address of the endpoint is http://localhost:8666/routes. When viewed in browser it will ask for user credentials which are by default sport(username) and city(password). Used authentication method is basic authentication. The future plan is to extend this to use tokens and to use different roles for different operations. There is a H2 Database used by the service. The database consists of two tables, one which contains the city information and the other the routes between any registered cities. All routes have a starting city and a destination city (not two-way routes). For every route there is a departure time and arrival time. There is only one route between two cities, since the travel method is always the same. The default database comes with 24 routes.
+
+  - The cityservice routes-endpoint is called without any parameters.
+  - Cityservice accesses a database, does conversion to Json objects and returns all available routes
+  
+- Registry
+
+The registry is a Eureka based service that is used by any microservices in the itinerary system to to register and gain information about other services.
